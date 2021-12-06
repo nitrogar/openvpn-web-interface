@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        async function get_users(name) {
+            var rgx = "^"+name;
+            var reg =  new RegExp(rgx,"i");
+            var request_users  = await fetch('/users');
+            var request_status = await fetch('/Status');
+            var users  = await request_users.json();
+            var status = await request_status.json(); 
+            var users_list = document.getElementById("user_list");
+            list = users["users"];
+            console.log(list);
+            var i = 0;
+            users_list.innerHTML = "";
+            users_list.innerHTML += `<div class='user'><div class='no_user'>#</div><div class='username'>Username</div><div class='user_status'>Status</div><div class='user_status'>Client IP</div><div class='user_status'>Assigned IP</div><div class='user_status'>Connection Time</div><div class='user_status'>Action</div></div>`
+            for(var user of list){
+                console.log(reg , user.match(reg) , user);
+                if(user.match(reg)){
+                    if(user in status)
+                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Active</div><div class='real_ip'>${status[user]["Real IP"]}</div><div class='assigned_ip'>${status[user]["Virtual IP"]}</div><div class='connection_time'>${status[user]["since"]}</div><div class='user_status'>Revoke</div></div>`;
+                    else
+                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Disconnected</div><div class='real_ip'>N/A</div><div class='assigned_ip'>N/A</div><div class='connection_time'>N/A</div><div class='user_status'>Revoke</div></div>`;
+                }
+        }      
+        }
+        async function add_user(name) {
+            console.log(`creating user ${name} ..`)
+            var request_add_user  = await fetch('/AddUser/' + name);
+            var response  = await request_add_user.json(); 
+            var alert_element = document.getElementById("alert");
+            alert_element.innerHTML = "";
+            alert_element.style.display = 'block';
+            if(response["status"] == "OK")
+                alert_element.innerHTML += `<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>user ${name} was created successfully`;
+            else
+                alert_element.innerHTML += `<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>Error While Creating user ${name} `;
+
+            get_users(".*");
+            
+        }
+        
+        get_users(".*");
+    </script>
+    <style>
+        body {
+            background-color: #2B3035;
+            font-family: 'Courier New', monospace;
+            font-size: medium;
+            color: #f7f1e3;
+        }
+        .container{
+            display : Grid;
+            grid-auto-rows: auto;
+            gap: 1em;
+            margin: 3em 3em 3em 3em;
+            height: 90%;
+
+        }
+
+        .panel{
+            display : Grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            justify-content: center;
+            padding : 0.5em;
+            border-radius: 2px;
+            background-color: #343A40;
+
+        }
+        .items {
+            display : Grid;
+            grid-auto-rows: auto;
+            gap: 0.5em;
+        }
+        .user {
+            display : Grid;
+            grid-template-columns:1fr 1fr 1fr 2fr 1fr 2fr 1fr;
+            padding : 0.5em;
+            border-radius: 2px;
+        
+            background-color: #343A40;
+        }
+        .user:hover {
+            background-color: rgba(255,255,255,.075);;
+        }
+        .btn_addUser {
+            padding : 0.5em;
+            border-radius: 2px;
+            border: 0.05em solid;
+            background-color: #FFB085;
+
+        }
+        #alert {
+            padding: 20px;
+            background-color: #343A40;
+            color: white;
+            margin-bottom: 15px;
+            display:none;
+        }
+
+        /* The close button */
+        .closebtn {
+            margin-left: 15px;
+            color: white;
+            font-weight: bold;
+            float: right;
+            font-size: 22px;
+            line-height: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        /* When moving the mouse over the close button */
+        .closebtn:hover {
+            color: black;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <div id="alert">
+        
+    </div>
+<div class="container">
+    <div class="panel">
+        <input type="text" id="search_bar" placeholder="Search . . ." oninput="get_users(this.value);" >
+        <div class="spacer"></div>
+        <input type="text" id="new_username" placeholder="New User . . ."  >
+        <button class="btn_addUser" onclick="add_user(document.getElementById('new_username').value);">Add User</button>
+    </div>
+    <div class="items" id="user_list"> </div>
+
+
+
+</div>    
+</body>
+</html>

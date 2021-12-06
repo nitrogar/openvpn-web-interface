@@ -1,0 +1,301 @@
+    1  sudo apt update
+    2  sudo apt upgrade
+    3  sudo apt install openvpn
+    4  cp -r /usr/share/easy-rsa /etc/
+    5  cd /etc/easy-rsa/
+    6  ls
+    7  ./easyrsa init-pki
+    8  ./easyrsa build-ca
+    9  ./easyrsa gen-dh
+   10  ./easyrsa build-server-full server nopass
+   11  openvpn --genkey secret /etc/easy-rsa/pki/ta.key
+   12  ./easyrsa gen-crl
+   13  cp -rp /etc/easy-rsa/pki/{ca.crt,dh.pem,ta.key,crl.pem,issued,private} /etc/openvpn/server/
+   14  ./easyrsa build-client-full user nopass
+   15  ./easyrsa build-client-full user nopass 
+   16  mkdir /etc/openvpn/client/user
+   17  cp -rp /etc/easy-rsa/pki/{ca.crt,issued/koromicha.crt,private/koromicha.key} /etc/openvpn/client/user
+   18  cp -rp /etc/easy-rsa/pki/{ca.crt,issued/user.crt,private/user.key} /etc/openvpn/client/user
+   19  cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf.gz /etc/openvpn/server/
+   20  cd /usr/share/doc/openvpn/examples/sample-config-files/
+   21  ls
+   22  cp /usr/share/doc/openvpn/examples/sample-config-files/server.conf /etc/openvpn/server/
+   23  cd /etc/openvpn/server/
+   24  ls
+   25  cat server.conf 
+   26  ls
+   27  nano /etc/sysctl.conf 
+   28  sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+   29  sysctl -p
+   30  ufw allow 1194/udp
+   31  apt install ufw
+   32  ufw allow 1194/udp
+   33  ip route get 8.8.8.8
+   34  nano /etc/ufw/before.rules
+   35  nano /etc/ufw/before.rules
+   36  sed -i 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/' /etc/default/ufw
+   37  ufw reload
+   38  systemctl enable --now openvpn-server@server
+   39  systemctl enable --now openvpn-server@TheDropletLord
+   40  systemctl start openvpn-server
+   41  systemctl start openvpn
+   42  systemctl status openvpn
+   43  systemctl list
+   44  systemctl -help
+   45  systemctl -helpsystemctl list-units --type=service
+   46  systemctl list-units --type=service
+   47  reboot
+   48  systemctl list-units --type=service
+   49  systemctl enable --now openvpn-server@server
+   50  systemctl status openvpn-server@server.service
+   51  journalctl -xe
+   52  systemctl enable openvpn-server@server.service
+   53  systemctl enable --now openvpn-server@server
+   54  systemctl enable openvpn-server@server.service
+   55  systemctl list-units --type=service
+   56  systemctl start openvpn-server@server.service
+   57  systemctl status openvpn@server.service
+   58  tail -50 /var/log/openvpn.log
+   59  locate
+   60  apt install localte
+   61  apt install locate
+   62  updatedb
+   63  locate openvpn.log
+   64  sudo journalctl -xe
+   65  ls
+   66  cd /etc/openvpn/server/
+   67  ks
+   68  ls
+   69  nano server.conf 
+   70  systemctl enable --now openvpn-server@server
+   71  systemctl status openvpn-server@server
+   72  ip add s
+   73  tail /var/log/openvpn/openvpn.log
+   74  tail /var/log/openvpn.log
+   75  apt install vsftpd
+   76  ip 
+   77  ip add
+   78  cd ..
+   79  ls
+   80  cd client/
+   81  ls
+   82  cd user
+   83  pwd
+   84  cd ..[A
+   85  cd ..
+   86  cd server
+   87  ls
+   88  systemctl status openvpn-server@server
+   89  nano server.conf 
+   90  systemctl status openvpn-server@server
+   91  nano server.conf 
+   92  systemctl restart openvpn-server@server
+   93  systemctl status openvpn-server@server
+   94  systemctl status openvpn-server@server
+   95  ls
+   96  nano server.conf 
+   97  nano server.conf 
+   98  systemctl restart openvpn-server@server
+   99  journalctl -xe
+  100  cat /var/log/openvpn.log
+  101  locate openvpn
+  102  locate openvpn.log
+  103  cat /var/log/openvpn
+  104  cd /var/log/openvpn/
+  105  ls
+  106  cat openvpn-status.log 
+  107  cat ipp.txt 
+  108  cd -
+  109  nano server.conf 
+  110  systemctl restart openvpn-server@server
+  111  systemctl stop openvpn-server@server
+  112  systemctl start p openvpn-server@server
+  113  systemctl start  openvpn-server@server
+  114  systemctl status openvpn-server@server.service
+  115  nano server.conf 
+  116  systemctl start  openvpn-server@server
+  117  cat /var/log/openvpn/openvpn.log 
+  118  nano server.conf 
+  119  systemctl start  openvpn-server@server
+  120  systemctl status  openvpn-server@server
+  121  systemctl status  openvpn-server@server
+  122  cat /var/log/openvpn/openvpn.log 
+  123  openvpn --genkey tls-auth ta.key
+  124  ls
+  125  systemctl restart openvpn-server@server
+  126  cat /var/log/openvpn/openvpn.log 
+  127  cat ta.key 
+  128  openvpn -v
+  129  openvpn --version
+  130  nano server.conf 
+  131  systemctl restart openvpn-server@server
+  132  cat /var/log/openvpn/openvpn.log 
+  133  cd /etc/easy-rsa
+  134  ./easyrsa build-client-full user2 nopass
+  135  mkdir /etc/openvpn/client/user2
+  136  cp -rp /etc/easy-rsa/pki/{ca.crt,issued/user2.crt,private/user2.key} /etc/openvpn/client/user2
+  137  ping 10.8.0.10
+  138  ping 10.8.0.6
+  139   g                                                                                                                                      
+  140  cd -
+  141  nano server.conf 
+  142  systemctl restart openvpn-server@server
+  143  ping 10.8.0.4
+  144  ip add
+  145  nano server.conf 
+  146  fg
+  147  systemctl restart openvpn-server@server
+  148  python3 -m http 6060
+  149  pip3 install http
+  150  apt install python3-http
+  151  apt install python3-pip
+  152  pip3 install http
+  153  pip3 install request
+  154  pip3 install requests
+  155  pip3 install requests
+  156  pip3 install http
+  157  nano server.conf 
+  158  systemctl restart openvpn-server@server
+  159  nano server.conf 
+  160  echo "1" > /proc/sys/net/ipv4/ip_forward
+  161  nano /etc/sysctl.conf
+  162  iptables -t nat -I POSTROUTING -o tun+ -s 10.8.1.0/24 -j MASQUERADE
+  163  iptables -P FORWARD ACCEPT
+  164  iptables -A INPUT -i tun+ -j ACCEPT
+  165  iptables -A FORWARD -i tun+ -j ACCEPT
+  166  nano server.conf 
+  167  systemctl restart openvpn-server@server
+  168  nano server.conf 
+  169  fg
+  170  systemctl restart openvpn-server@server
+  171  ip addr
+  172  nano server.conf 
+  173  nano iptable.cof
+  174  true > /etc/iptables/rules.v4
+  175  iptables-restore < iptable.cof 
+  176  cd /etc/openvpn/
+  177  cd server/
+  178  ls
+  179  ip add
+  180  iptables
+  181  iptables --list
+  182  ip route get 8.8.8.8
+  183  nano /etc/ufw/before.rules 
+  184  sed -i 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/' /etc/default/ufw
+  185  ufw reload
+  186  sudo ufw status verbose
+  187  sudo ufw enable
+  188  ufw reload
+  189  nano server.conf 
+  190  systemctl restart openvpn-server@server
+  191  ufw allow 1194/udp
+  192  nano /etc/ufw/before.rules 
+  193  ip route
+  194  ip route get 8.8.8.8
+  195  sudo tcpdump -ni eth0 port 443
+  196  nano /etc/ufw/before.rules 
+  197  ufw allow 1194
+  198  ufw reload
+  199  sysctl -w net.ipv4.ip_forward=1
+  200  sysctl -P
+  201  sysctl -p
+  202  ufw reload
+  203  nano server.conf 
+  204  systemctl restart openvpn-server@server
+  205  sudo tcpdump -ni eth0 port 443
+  206  sudo ufw disabl
+  207  sudo ufw disable
+  208  reboot
+  209  cd /etc/openvpn/server/
+  210  ls
+  211  nano server.conf 
+  212  systemctl restart openvpn-server@server
+  213  tail /var/log/openvpn/openvpn.log 
+  214  ping 10.8.0.3
+  215  ping 10.8.0.3
+  216  cat /var/log/openvpn/ipp.txt 
+  217  ping 10.8.0.3
+  218  ufw reload
+  219  sudo ufw enable
+  220  ufw reload
+  221  systemctl restart openvpn-server@server
+  222  ping 10.8.0.3
+  223  ping 10.8.0.3
+  224  nano server.conf 
+  225  systemctl restart openvpn-server@server
+  226  sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
+  227  ip route get 8.8.8.8
+  228  nano *nat
+  229  :POSTROUTING ACCEPT [0:0]
+  230  -A POSTROUTING -s 10.8.0.0/8 -o enp0s3 -j MASQUERADE
+  231  COMMIT
+  232  nano /etc/ufw/before.rules 
+  233  sed -i 's/DEFAULT_FORWARD_POLICY="DROP"/DEFAULT_FORWARD_POLICY="ACCEPT"/' /etc/default/ufw
+  234  ufw reload
+  235  sysctl -p
+  236  ping 10.8.0.2
+  237  ping 10.8.0.8
+  238  ping 10.8.0.2
+  239  ping 10.8.0.8
+  240  ls
+  241  sudo ufw allow 22/tcp
+  242  cd /etc/openvpn/
+  243  cd sercer
+  244  cd server
+  245  ip address
+  246  ls
+  247  rm 'ystemctl list-units --type=service' 
+  248  ls
+  249  ls private/
+  250  ls
+  251  cd ..
+  252  ls
+  253  cd client/
+  254  ls
+  255  ls user
+  256  cd ..
+  257  ls
+  258  ls
+  259  c /var/log/openvp
+  260  cd /var/log/openvp
+  261  cd /var/log/openvpn/
+  262  l
+  263  ls
+  264  cat ipp.txt 
+  265  cat ipp.txt 
+  266  cat ipp.txt 
+  267  cat ipp.txt 
+  268  cat ipp.txt 
+  269  cat ipp.txt 
+  270  l
+  271  apt install nodejs npm
+  272  apt autoremove
+  273  disk 
+  274  pt install git 
+  275  apt inastall git 
+  276  apt install git 
+  277  mkdir -p /root/web/openvpn/
+  278  git clone https://github.com/nitrogar/openvpn-web-interface.git
+  279  ls /etc/openvpn/
+  280  ls /etc/openvpn/cliets
+  281  ls /etc/openvpn/client/
+  282  node server.js
+  283  npm install express
+  284  npm install chile_porcess
+  285  npm install child_porcess
+  286  npm install child_process
+  287  cd openvpn-web-interface/
+  288  node server.js 
+  289  node server.js 
+  290  node server.js 
+  291  node server.js 
+  292  history
+  293  ufw allow 8888/tcp
+  294  node server.js 
+  295  node server.js 
+  296  node server.js 
+  297  node server.js 
+  298  node server.js 
+  299  ls /etc/openvpn/client/
+  300  node server.js 
+  301  history > xx

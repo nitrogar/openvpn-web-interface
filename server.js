@@ -3,7 +3,11 @@ var app = express();
 const { exec, execFile } = require("child_process");
 var fs = require('fs')
 const util = require('util');
- 
+var ndef = require('ndef');
+var net = require("net");
+
+
+
 ca = 'placeholder'
 ta = 'placeholder'
 key = 'placeholder'
@@ -100,6 +104,30 @@ app.get('/Status', function(req,res){
         res.send(JSON.stringify(users));
     });
 })
+app.get('/NFCWrite/:name' , function(req,res){
+    message = [
+        ndef.textRecord(req.params.name)
+    ];
+    
+    bytes = ndef.encodeMessage(message);
+    buffer = Buffer.from(bytes);
+
+    var s = new net.Socket();
+    s.connect(4444, '10.8.0.6');
+    s.write(buffer);
+    s.end();
+
+    res.redirect('/');
+    console.log(buffer);
+    console.log(ndef.decodeMessage(bytes));
+
+    
+
+
+
+
+
+})
 app.get('/addUser/:name', function(req, res){
     exec(`mkdir /etc/openvpn/client/${req.params.name};cd /etc/easy-rsa/;EASYRSA_PASSIN=pass:passphrase ./easyrsa build-client-full ${req.params.name} nopass`,
     (error, stdout, stderr) => {
@@ -139,7 +167,7 @@ app.get('/removeUser/:name', function(req, res){
 app.get('/UserFile/:name', function(req,res){
                     var conf_file =  parse_config(req.params.name);
                     res.type('txt')
-                    res.set({'Content-Type': 'application/force-download','Content-disposition':`attachment; filename=${req.params.name}.ovpn`});
+                    //res.set({'Content-Type': 'application/force-download','Content-disposition':`attachment; filename=${req.params.name}.ovpn`});
                     res.send(conf_file);
 })    
 var server = app.listen(8888,"178.62.33.8", function () {

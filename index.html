@@ -19,9 +19,13 @@
                 console.log(reg , user.match(reg) , user);
                 if(user.match(reg)){
                     if(user in status)
-                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Active</div><div class='real_ip'>${status[user]["Real IP"]}</div><div class='assigned_ip'>${status[user]["Virtual IP"]}</div><div class='connection_time'>${status[user]["since"]}</div><div class='user_status'>Revoke</div></div>`;
+                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Active</div><div class='real_ip'>${status[user]["Real IP"]}</div><div class='assigned_ip'>${status[user]["Virtual IP"]}</div><div class='connection_time'>${status[user]["since"]}</div>
+                        <div class='user_status'><a href="/RemoveUser/${user}"> Revoke </a> | <a href="/NFCWrite/${user}">Write </a> | <a href="/UserFile/${user}">Download</a></div>
+                        </div>`;
                     else
-                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Disconnected</div><div class='real_ip'>N/A</div><div class='assigned_ip'>N/A</div><div class='connection_time'>N/A</div><div class='user_status'>Revoke</div></div>`;
+                        users_list.innerHTML += `<div class='user'><div class='no_user'>${i++}</div><div class='username'>${user}</div><div class='status'>Disconnected</div><div class='real_ip'>N/A</div><div class='assigned_ip'>N/A</div><div class='connection_time'>N/A</div>
+                        <div class='user_status'><a href="/RemoveUser/${user}"> Revoke </a> | <a href="/NFCWrite/${user}">Write </a> | <a href="/UserFile/${user}">Download</a></div>
+                        </div>`;
                 }
         }      
         }
@@ -50,6 +54,12 @@
             font-size: medium;
             color: #f7f1e3;
         }
+        a {
+            font-family: 'Courier New', monospace;
+            font-size: medium;
+            color: #f7f1e3;
+            text-decoration: none;
+        }
         .container{
             display : Grid;
             grid-auto-rows: auto;
@@ -75,7 +85,7 @@
         }
         .user {
             display : Grid;
-            grid-template-columns:1fr 1fr 1fr 2fr 1fr 2fr 1fr;
+            grid-template-columns:0.5fr 1fr 1fr 2fr 1fr 2fr 2fr;
             padding : 0.5em;
             border-radius: 2px;
         

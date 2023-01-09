@@ -19,7 +19,7 @@ tls-client
 pull
 dev tun
 proto udp4
-remote 178.62.33.8 1194
+remote 165.227.167.144 1194
 resolv-retry infinite
 nobind
 #user nobody
